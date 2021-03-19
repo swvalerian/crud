@@ -20,7 +20,14 @@ public class AppRunner {
         int index = 11;
         System.out.println("\nЭлемент с индексом [" + index + "] = "  + rep.getById(index).getName());
 
+        rep.update(new Skill(16, "Freeman")); // ничего не запишет, т.к. этот метод изменяет имеющийся список в файле
 
+        rep.save(new Skill(16, "Freeman")); // а вот так запишет новый элемент
 
+        // а теперь изменим элемент
+        rep.update(new Skill(1, "Have a nice day!"));
+
+        // проверим последний метод, удалим элемент
+        rep.deleteById(2);
     }
 }
