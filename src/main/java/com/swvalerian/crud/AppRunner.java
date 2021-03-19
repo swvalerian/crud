@@ -16,5 +16,11 @@ public class AppRunner {
 
         System.out.println("\nНовый список элементов полученный из файла\n");
         newList.stream().forEach(s -> System.out.println(s.getId() + " : " + s.getName()));
+
+        int index = 12;
+        System.out.println("\nЭлемент с индексом [" + index + "] = "  + rep.getById(index).getName());
+
+
+
     }
 }
