@@ -1,0 +1,12 @@
+1,News/
+2,Sport/
+3,CashBack/
+4,Mouse/
+5,Keyboard/
+6,Orenburg/
+7,Action/
+8,People/
+9,Development/
+10,SovietUnion/
+11,TeleTrade/
+12,WebPage/
