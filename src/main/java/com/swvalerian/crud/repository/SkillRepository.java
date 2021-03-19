@@ -14,22 +14,22 @@ public class SkillRepository {
     public List<Skill> getAll() {
         File file = new File("src\\main\\resources\\files\\skills.txt");
         List<Skill> skillList = new ArrayList<>();
-        String name = "";
-        Integer id;
-        //String[] str = new String[100]; // создал массив на сто элементов
-        int i = 0;
 
         try (InputStream in = new FileInputStream(file)) {
             BufferedReader bufRead = new BufferedReader(new InputStreamReader(in));
 
-
             bufRead.lines().forEach(s -> {
-                String[] str = s.split(","); // разбиваем строку на две части
+                String name = "";
+                Integer id;
+                // разбиваем строку на две части
+                String[] str = s.split(",");
+                // первая часть - это число, загоняем его в ID
+                id = Integer.decode(str[0]);
+                //вторая часть строки - значение элемента, но не вся строка, поэтому конец строки обрезаем
+                name = str[1].substring(0, (str[1].length() - 1));
+                // осталось лишь. наполнить наш список
+                skillList.add(new Skill(id, name));
 
-                // первая часть - это число, загоняем его как ID в экземпляр обьетка Skill
-                skillList.add(new Skill(Integer.decode(str[0]),
-                        //вторая часть строки - значение элемента, но не вся строка, поэтому конец строки обрезаем
-                        str[1].substring(0, (str[1].length() - 1))));
             });
 
         } catch (FileNotFoundException e) {
@@ -37,7 +37,7 @@ public class SkillRepository {
         } catch (IOException ex) {
             System.err.println("ошибка ввода - вывода");
         }
-
+        // и вернуть список тому, кому он был нужен
         return skillList;
     }
 
