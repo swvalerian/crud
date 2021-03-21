@@ -1,5 +1,4 @@
-1,News/
-2,Sport
+1,Have a nice day!/
 3,CashBack/
 4,Mouse/
 5,Keyboard/
@@ -9,4 +8,5 @@
 9,Development/
 10,SovietUnion/
 11,TeleTrade/
-12,WebPage/
+12,Buisnes/
+2,Валерон/
