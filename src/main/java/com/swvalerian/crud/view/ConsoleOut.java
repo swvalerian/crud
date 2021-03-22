@@ -17,6 +17,8 @@ public class ConsoleOut {
             "update 10 HelloJava! -=> изменилось значение элемента под номер 10 и стало = HelloJava! \n" +
             "list -=> выводит номера всех элементов и их значения! \n";
 
+    public final static String goodBy = "Programm terminated. GoodBuy!";
+
     public String getHello() {
         return hello;
     }

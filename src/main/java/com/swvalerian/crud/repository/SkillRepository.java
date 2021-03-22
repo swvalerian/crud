@@ -1,14 +1,12 @@
 package com.swvalerian.crud.repository;
 
 import com.swvalerian.crud.model.Skill;
-
 import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class SkillRepository {
-    final File file = new File("src\\main\\resources\\files\\skills.txt");
+    final private File file = new File("src\\main\\resources\\files\\skills.txt");
 
     // приватный метод, создание списка из файла, который повторяется по коду много раз.
     private List<Skill> getListFF() {
@@ -17,7 +15,7 @@ public class SkillRepository {
         try (InputStream in = new FileInputStream(file)) {
             BufferedReader bufRead = new BufferedReader(new InputStreamReader(in));
 
-            bufRead.lines().forEach(s -> {
+            return bufRead.lines().map(s -> {
                 String name = "";
                 Integer index;
                 // разбиваем строку на две части
@@ -27,8 +25,8 @@ public class SkillRepository {
                 //вторая часть строки - значение элемента, но не вся строка, поэтому конец строки обрезаем
                 name = str[1].substring(0, (str[1].length() - 1));
                 // осталось лишь. наполнить наш список
-                skillList.add(new Skill(index, name));
-            });
+                return new Skill(index, name);
+            }).collect(Collectors.toList());
 
         } catch (NumberFormatException e) {
             System.err.println("Ошибка, скорее всего у вас пустая строка в файле!");
@@ -37,7 +35,7 @@ public class SkillRepository {
         } catch (IOException ex) {
             System.err.println("ошибка ввода - вывода");
         }
-        return skillList;
+       return skillList;
     }
 
     public List<Skill> getAll() {
@@ -45,42 +43,43 @@ public class SkillRepository {
     }
 
     public Skill getById(Integer id) {
-        List<Skill> skillList = getListFF();
-        skillList = skillList.stream().filter(skill -> skill.getId().equals(id)).collect(Collectors.toList());
-
-        return skillList.get(0); // счет с нуля в списке, а в файле с единицы, делаем кооректировку
+        return getListFF().stream().filter(s -> s.getId().equals(id)).findFirst().orElse(null);
     }
 
-    public Skill update(Skill skills) {
+    public List<Skill> update(Skill skills) {
         List<Skill> skillList = getListFF();
 
-        // изменяем элемент в списке
-        skillList.forEach(s -> {
-            if (s.getId().equals(skills.getId())) {
-                s.setName(skills.getName());
-            }
-        });
-
         //теперь нужно список записать в файл, т.е. открыть файл на перезапись и записать туда вновь получившийся список
-        try (OutputStream out = new FileOutputStream(file, false)) {
-            BufferedWriter bufWrite = new BufferedWriter(new OutputStreamWriter(out));
+        try (OutputStream out = new FileOutputStream(file, false);
+             BufferedWriter bufWrite = new BufferedWriter(new OutputStreamWriter(out)))
+        {
+            return skillList.stream()
+                    .map(s -> {
+                        if (s.getId().equals(skills.getId())) {
+                            s.setName(skills.getName());
+                        }
 
-            String name = "";
-            String index = "";
+                        String name = "";
+                        String index = "";
+                        index = s.getId().toString() + ",";
+                        name = s.getName() + "/";
 
-            for (int i = 0; i < skillList.size(); i++) {
-                index = skillList.get(i).getId().toString() + ",";
-                name = skillList.get(i).getName() + "/";
+                        try {
+                            bufWrite.write(index + name + "\n");
+                            bufWrite.flush();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        return s;
+                    })
+                    .collect(Collectors.toList());
 
-                bufWrite.write(index + name + "\n");
-            }
-            bufWrite.flush();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return skills;
+        return skillList;
     }
 
     public Skill save(Skill skills) {

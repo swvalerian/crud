@@ -1,8 +1,6 @@
 package com.swvalerian.crud.controller;
 
 import com.swvalerian.crud.model.Skill;
-
-
 import java.util.List;
 import java.util.Optional;
 

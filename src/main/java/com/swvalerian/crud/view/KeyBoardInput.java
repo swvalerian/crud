@@ -20,20 +20,27 @@ public class KeyBoardInput {
                 // команды: list, get, create, update, delete, exit
                 String[] com = str.split(" ");
                 switch (com[0]) {
-                    case "list" : sc.getAll();
+                    case "list" : System.out.println("\nВывод всех записей из файла: \n");
+                        sc.getAll();
                         break;
                     case "create" : sc.create(Integer.decode(com[1]), com[2]);
+                        System.out.println("\n Успешно создали новую запись в файле!");
                         break;
-                    case "get" : sc.read(Integer.decode(com[1]));
+                    case "get" : System.out.println("Получили следующую запись из файла: \n");
+                        sc.read(Integer.decode(com[1]));
                         break;
                     case "update" : sc.update(Integer.decode(com[1]), com[2]);
+                        System.out.println("\nЗапись в файле обновлена");
                         break;
                     case "delete" : sc.delete(Integer.decode(com[1]));
+                        System.out.println("\nЗапись номер " + com[1] + " удалена");
                         break;
                     case "help" :
                         System.out.println(out.getExampleCom());
                         break;
-                    case "exit" : return;
+                    case "exit" :
+                        System.out.println("неполучается взять статик переменную");
+                        return;
 
                     default :
                         System.out.println("Введите верную команду!");
