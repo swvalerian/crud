@@ -3,6 +3,7 @@ package com.swvalerian.crud;
 import com.swvalerian.crud.controller.SkillController;
 import com.swvalerian.crud.model.Skill;
 import com.swvalerian.crud.repository.SkillRepository;
+import com.swvalerian.crud.view.KeyBoardInput;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,6 @@ public class AppRunner {
         // проверим последний метод, удалим элемент
         rep.deleteById(2);
 
-
         // ТЕСТИРОВАНИЕ КОНТРОЛЛЕРА
         SkillController sc = new SkillController();
 
@@ -42,6 +42,10 @@ public class AppRunner {
         sc.getAll();
 
         // удаление одной записи
-        sc.delete(16);
+        sc.delete(1);
+
+        KeyBoardInput readCom = new KeyBoardInput();
+
+        readCom.keyRead();
     }
 }

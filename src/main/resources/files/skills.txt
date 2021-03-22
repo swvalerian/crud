@@ -1,12 +1,12 @@
-1,Have a nice day!/
 3,CashBack/
 4,Mouse/
 5,Keyboard/
 6,Orenburg/
 7,Action/
-8,People/
 9,Development/
-10,SovietUnion/
+10,elloJava!/
 11,TeleTrade/
-12,Buisnes/
+12,America/
+5,Father/
 2,Валерон/
+1,Экземпляр/

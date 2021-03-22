@@ -40,7 +40,8 @@ public class SkillController implements ControllerIF {
 
     @Override
     public List<Skill> getAll() {
-        System.out.println("Вывод всех записей из файла: \n" + skillRepository.getAll());
+        System.out.println("Вывод всех записей из файла: \n");
+        skillRepository.getAll().stream().forEach(s -> System.out.println(s.getId() + " : " +  s.getName()));
         return skillRepository.getAll();
     }
 }

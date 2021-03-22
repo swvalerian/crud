@@ -46,7 +46,9 @@ public class SkillRepository {
 
     public Skill getById(Integer id) {
         List<Skill> skillList = getListFF();
-        return skillList.get(id - 1); // счет с нуля в списке, а в файле с единицы, делаем кооректировку
+        skillList = skillList.stream().filter(skill -> skill.getId().equals(id)).collect(Collectors.toList());
+
+        return skillList.get(0); // счет с нуля в списке, а в файле с единицы, делаем кооректировку
     }
 
     public Skill update(Skill skills) {
