@@ -1,12 +1,12 @@
 package com.swvalerian.crud;
 
-import com.swvalerian.crud.view.KeyBoardInput;
+import com.swvalerian.crud.view.SkillView;
 
 
 public class AppRunner {
     public static void main(String[] args) {
-        KeyBoardInput readCom = new KeyBoardInput();
+        SkillView skillView = new SkillView();
 
-        readCom.keyRead();
+        skillView.showMenu();
     }
 }

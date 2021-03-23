@@ -4,9 +4,9 @@ import com.swvalerian.crud.controller.SkillController;
 import com.swvalerian.crud.model.Skill;
 import java.io.*;
 
-public class KeyBoardInput {
+public class SkillView {
 
-    public void keyRead() { // думаю этот метод надо сделать final
+    public void showMenu() { // думаю этот метод надо сделать final
         try (BufferedReader bufRead = new BufferedReader(new InputStreamReader(System.in))) {
             String str;
             ConsoleOut out = new ConsoleOut();
@@ -39,7 +39,7 @@ public class KeyBoardInput {
                         System.out.println(out.getExampleCom());
                         break;
                     case "exit" :
-                        System.out.println("неполучается взять статик переменную");
+                        System.out.println(ConsoleOut.goodBy);
                         return;
 
                     default :
