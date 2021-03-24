@@ -1,10 +1,8 @@
-4,Mouse/
+4,Wolf/
 6,Orenburg/
 7,Action/
 9,Development/
 11,TeleTrade/
-12,Russia/
-2,Валерон/
-8,BarberShop/
-1,USA/
-3,BarberShop/
+4,Wolf/
+6,Orenburg/
+7,Action/

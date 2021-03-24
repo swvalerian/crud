@@ -5,7 +5,7 @@ import java.util.List;
 public class Team {
     Integer id;
     String name;
-    List<Post> posts;
+    List<Developer> developers;
 
     public Integer getId() {
         return id;
@@ -23,17 +23,17 @@ public class Team {
         this.name = name;
     }
 
-    public List<Post> getPosts() {
-        return posts;
+    public List<Developer> getDevelopers() {
+        return developers;
     }
 
-    public void setPosts(List<Post> posts) {
-        this.posts = posts;
+    public void setDevelopers(List<Developer> developers) {
+        this.developers = developers;
     }
 
-    public Team(Integer id, String name, List<Post> posts) {
+    public Team(Integer id, String name, List<Developer> developers) {
         this.id = id;
         this.name = name;
-        this.posts = posts;
+        this.developers = developers;
     }
 }

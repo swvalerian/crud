@@ -10,14 +10,12 @@ public class SkillRepository {
 
     // из строки получаем обьект типа Skill для добавления его в список
     private Skill convertStringToSkill(String s) {
-        String name = "";
-        Integer index;
         // разбиваем строку на две части
         String[] str = s.split(",");
         // первая часть - это число, загоняем его в ID
-        index = Integer.decode(str[0]);
+        Integer index = Integer.decode(str[0]);
         //вторая часть строки - значение элемента, но не вся строка, поэтому конец строки обрезаем
-        name = str[1].substring(0, (str[1].length() - 1));
+        String name = str[1].substring(0, (str[1].length() - 1));
         return new Skill(index, name);
     }
 
@@ -27,7 +25,7 @@ public class SkillRepository {
         return name;
     }
 
-    // метод принимает список, конвертирует с помощью приват метода и пишет в файл построчно!
+    // метод принимает обьект из списка, конвертирует с помощью приват метода в строку и пишет строку в файл!
     private void writeBuf(Skill s) {
         try (OutputStream out = new FileOutputStream(file, true);
              BufferedWriter bufWrite = new BufferedWriter(new OutputStreamWriter(out)))
@@ -102,7 +100,8 @@ public class SkillRepository {
 
     public void deleteById(Integer id) {
         List<Skill> skillList = getListFF();
-        skillList.removeIf( skill -> skill.getId().equals(id));
+        skillList.removeIf(skill -> skill.getId().equals(id));
+        // skillList.forEach(this::writeBuf); // этого недостаточно! файл не перезаписывается, а добавляется новый список
 
         try (OutputStream out = new FileOutputStream(file, false);
              BufferedWriter bufWrite = new BufferedWriter(new OutputStreamWriter(out)))
