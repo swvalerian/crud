@@ -1,4 +1,4 @@
-1,Valeriy,Panafidin/
+1,ChiCHi,GaGa/
 2,Timur,Lopatin/
 3,Fedor,Bombino/
 4,August,Cesar/

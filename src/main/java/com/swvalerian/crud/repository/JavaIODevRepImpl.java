@@ -49,7 +49,7 @@ public class JavaIODevRepImpl implements DeveloperRepository {
         return getListFFD().stream().filter( s -> s.getId().equals(id.intValue())).findFirst().orElse(null);
     }
 
-    @Override
+    @Override // реализовал!
     public Developer save(Developer developer) {
             writeBuf(developer);
         return developer;
@@ -77,11 +77,29 @@ public class JavaIODevRepImpl implements DeveloperRepository {
 
     @Override
     public List<Developer> update(Developer developer) {
-        return null;
+        List<Developer> listDev = getListFFD();
+
+        file.delete();
+
+        return listDev.stream().peek(s ->
+                {
+                    if (s.getId().equals(developer.getId())) {
+                        s.setFirstName(developer.getFirstName());
+                        s.setLastName(developer.getLastName());
+                    }
+                writeBuf(s); // пишем построчно в новый файл.
+                })
+                .collect(Collectors.toList());
     }
 
     @Override
     public void deleteById(Long id) {
+        List<Developer> listDev = getListFFD();
+        listDev.removeIf(s -> s.getId().equals(id.intValue()));
+
+        file.delete();
+
+        listDev.forEach(this::writeBuf);
 
     }
 }

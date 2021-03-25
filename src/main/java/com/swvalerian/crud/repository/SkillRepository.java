@@ -49,7 +49,7 @@ public class SkillRepository {
 
             return bufRead.lines().map(s -> convertStringToSkill(s)).collect(Collectors.toList());
 
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException e) { // УДАЛИТЬ ЛИШНИЙ ТРАЙ-КЕЧ В ФИНАЛЬНОЙ СТАДИИ
             System.err.println("Ошибка, скорее всего у вас пустая строка в файле!");
         } catch (FileNotFoundException e) {
             System.err.println("Файл не найден!");
@@ -70,26 +70,15 @@ public class SkillRepository {
     public List<Skill> update(Skill skills) {
         List<Skill> skillList = getListFF();
 
-        //теперь нужно список записать в файл, т.е. открыть файл на перезапись и записать туда вновь получившийся список
-        try (OutputStream out = new FileOutputStream(file, false);
-             BufferedWriter bufWrite = new BufferedWriter(new OutputStreamWriter(out)))
-        {
-            return skillList.stream()
-                    .map(s -> {
-                        if (s.getId().equals(skills.getId())) {
-                            s.setName(skills.getName());
-                        }
-                        writeBuf(s);
-                        return s;
-                    })
-                    .collect(Collectors.toList());
+        file.delete(); // удалим файл, дабы сформировать новый!
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return skillList;
+        return skillList.stream().peek
+                (s -> { if (s.getId().equals(skills.getId())) {
+                            s.setName(skills.getName());
+                            }
+                        writeBuf(s);
+                })
+                .collect(Collectors.toList());
     }
 
     public Skill save(Skill skills) {
@@ -101,18 +90,10 @@ public class SkillRepository {
     public void deleteById(Integer id) {
         List<Skill> skillList = getListFF();
         skillList.removeIf(skill -> skill.getId().equals(id));
-        // skillList.forEach(this::writeBuf); // этого недостаточно! файл не перезаписывается, а добавляется новый список
 
-        try (OutputStream out = new FileOutputStream(file, false);
-             BufferedWriter bufWrite = new BufferedWriter(new OutputStreamWriter(out)))
-        {
+        file.delete(); // удалим файл, дабы сформировать новый!
 
-            skillList.stream().forEach(skill -> writeBuf(skill));
+        skillList.forEach(this::writeBuf); // пишем новый файл
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
