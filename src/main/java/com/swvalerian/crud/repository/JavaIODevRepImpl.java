@@ -1,7 +1,6 @@
 package com.swvalerian.crud.repository;
 
 import com.swvalerian.crud.model.Developer;
-import com.swvalerian.crud.model.Skill;
 
 import java.io.*;
 import java.util.ArrayList;

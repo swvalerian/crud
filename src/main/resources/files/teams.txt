@@ -1,0 +1,9 @@
+10,SanTiag/
+20,KuzmaPrutko/
+30,IrvinYalo/
+40,AndreyPushki/
+50,Baba/
+60,Puzaterk/
+70,Hulinaga/
+80,Terminator/
+200,ТЕРМИНАТОР/

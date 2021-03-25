@@ -19,8 +19,7 @@ public class SkillController implements ControllerIF {
 
     @Override
     public Skill read(Integer id) {
-        System.out.println(skillRepository.getById(id));;
-        return skillRepository.getById(id);
+       return skillRepository.getById(id);
     }
 
     @Override

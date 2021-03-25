@@ -7,6 +7,15 @@ public class Team {
     String name;
     List<Developer> developers;
 
+    @Override
+    public String toString() {
+        return "Team{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", developers=" + developers +
+                '}';
+    }
+
     public Integer getId() {
         return id;
     }

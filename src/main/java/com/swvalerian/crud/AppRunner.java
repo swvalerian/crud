@@ -1,32 +1,39 @@
 package com.swvalerian.crud;
 
+import com.swvalerian.crud.controller.DevController;
+import com.swvalerian.crud.controller.TeamController;
 import com.swvalerian.crud.model.Developer;
+import com.swvalerian.crud.model.Team;
 import com.swvalerian.crud.repository.JavaIODevRepImpl;
+import com.swvalerian.crud.repository.JavaIOTeamRepImpl;
 import com.swvalerian.crud.repository.SkillRepository;
 import com.swvalerian.crud.view.SkillView;
 
 public class AppRunner {
     public static void main(String[] args) {
-//        SkillView skillView = new SkillView();
-//        skillView.showMenu();
+        DevController devController = new DevController();
 
-        JavaIODevRepImpl dev = new JavaIODevRepImpl();
-
-        System.out.println(dev.getAll());;
+        devController.getAll();
+        devController.create(20,"Тимур", "Родригез");
+        devController.read(20l);
+        devController.update(20, "Al", "Pachino");
+        devController.read(20l);
+        devController.delete(20l);
+        devController.read(20l);
         System.out.println();
 
-        System.out.println(dev.getId(3L));
-        System.out.println();
+        TeamController teamController = new TeamController();
 
-        dev.save(new Developer(5, "Vinni", "Puh", new SkillRepository().getAll()));
+        teamController.getAll();
 
-        dev.update(new Developer(1, "ChiCHi", "GaGa", new SkillRepository().getAll()));
+        teamController.create(200, "чебуратор");
 
-        System.out.println("Вновь сформировавшийся список стал таким: " + dev.getAll());;
-        System.out.println();
+        System.out.println("ЗАпись состоялась");
 
-        dev.deleteById(5l);
-        System.out.println("Вновь сформировавшийся список стал таким: " + dev.getAll());;
-        System.out.println();
+        teamController.read(200);
+        teamController.update(200, "ТЕРМИНАТОР");
+        teamController.read(200);
+        teamController.delete(80);
+        teamController.getAll();
     }
 }
