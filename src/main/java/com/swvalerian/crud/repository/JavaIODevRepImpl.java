@@ -1,6 +1,7 @@
 package com.swvalerian.crud.repository;
 
 import com.swvalerian.crud.model.Developer;
+import com.swvalerian.crud.model.Skill;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -13,13 +14,21 @@ public class JavaIODevRepImpl implements DeveloperRepository {
     final private File file = new File("src\\main\\resources\\files\\developers.txt");
 
     private Developer convertStringToDev(String s) {
-        // разбиваем строку на три части
+        s = s.substring(0, s.length()-1); // получили строку без последнего знака "/"
 
         String[] str = s.split(",");
         String firstName = str[1];
-        String lastName = str[2].substring(0, (str[2].length() - 1));
+        String lastName = str[2];
+
+        List<Skill> skillList = new ArrayList<>();
+        int i = 3;
+        while (i < str.length) {
+            skillList.add(new SkillRepository().getById(Integer.decode(str[i])));
+            i++;
+        }
+
         Integer id = Integer.decode(str[0]);
-        return new Developer(id, firstName, lastName, new SkillRepository().getAll());
+        return new Developer(id, firstName, lastName, skillList);
     }
 
     private List<Developer> getListFFD() {

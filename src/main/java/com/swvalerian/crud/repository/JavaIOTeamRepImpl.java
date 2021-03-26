@@ -1,5 +1,7 @@
 package com.swvalerian.crud.repository;
 
+import com.swvalerian.crud.model.Developer;
+import com.swvalerian.crud.model.Skill;
 import com.swvalerian.crud.model.Team;
 
 import java.io.*;
@@ -28,11 +30,19 @@ public class JavaIOTeamRepImpl implements TeamRepository{
     }
 
     private Team convertStringToTeam(String s) {
+        s = s.substring(0, s.length()-1); // получили строку без последнего знака "/"
         String[] str = s.split(",");
 
-        String name = str[1].substring(0, (str[1].length() - 1));
+        List<Developer> devList = new ArrayList<>();
+        int i = 2;
+        while (i < str.length) {
+            devList.add(new JavaIODevRepImpl().getId(Long.decode(str[i])));
+            i++;
+        }
+
+        String name = str[1];
         Integer id = Integer.decode(str[0]);
-        return new Team(id, name, new JavaIODevRepImpl().getAll());
+        return new Team(id, name, devList);
     }
 
     @Override

@@ -49,8 +49,6 @@ public class SkillRepository {
 
             return bufRead.lines().map(s -> convertStringToSkill(s)).collect(Collectors.toList());
 
-        } catch (NumberFormatException e) { // УДАЛИТЬ ЛИШНИЙ ТРАЙ-КЕЧ В ФИНАЛЬНОЙ СТАДИИ
-            System.err.println("Ошибка, скорее всего у вас пустая строка в файле!");
         } catch (FileNotFoundException e) {
             System.err.println("Файл не найден!");
         } catch (IOException ex) {
