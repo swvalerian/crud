@@ -1,38 +1,41 @@
 package com.swvalerian.crud.view;
 
-import com.swvalerian.crud.controller.SkillController;
-import com.swvalerian.crud.model.Skill;
-import java.io.*;
+import com.swvalerian.crud.controller.TeamController;
 
-public class SkillView {
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
+public class TeamView {
     public void showMenu() { // думаю этот метод надо сделать final
         try (BufferedReader bufRead = new BufferedReader(new InputStreamReader(System.in))) {
             String str;
             ConsoleOut out = new ConsoleOut();
-            System.out.println(out.getHello() + out.userComSkill);
+            System.out.println(out.getHello() + out.userComTeam);
 
-            SkillController sc = new SkillController();
+            TeamController tc = new TeamController();
 
             while (true) {
+
+                // ошибка тут! строка ниже вызовет IOException
                 str = bufRead.readLine();
 
                 // команды: list, get, create, update, delete, exit
                 String[] com = str.split(" ");
                 switch (com[0]) {
-                    case "list" : System.out.println("\nВывод всех записей из файла: \n");
-                        sc.getAll();
+                    case "listT" : System.out.println("\nВывод всех записей из файла: \n");
+                        tc.getAll();
                         break;
-                    case "create" : sc.create(Integer.decode(com[1]), com[2]);
+                    case "createT" : tc.create(Integer.decode(com[1]), com[2]);
                         System.out.println("\n Успешно создали новую запись в файле!");
                         break;
-                    case "get" : System.out.println("Получили следующую запись из файла: \n");
-                        sc.read(Integer.decode(com[1]));
+                    case "getT" : System.out.println("Получили следующую запись из файла: \n");
+                        tc.read(Integer.decode(com[1]));
                         break;
-                    case "update" : sc.update(Integer.decode(com[1]), com[2]);
+                    case "updateT" : tc.update(Integer.decode(com[1]), com[2]);
                         System.out.println("\nЗапись в файле обновлена");
                         break;
-                    case "delete" : sc.delete(Integer.decode(com[1]));
+                    case "deleteT" : tc.delete(Integer.decode(com[1]));
                         System.out.println("\nЗапись номер " + com[1] + " удалена");
                         break;
                     case "help" :
@@ -47,7 +50,7 @@ public class SkillView {
                 }
             }
         } catch (IOException ex) {
-            System.err.println("ошибка ввода - вывода");
+            System.err.println("ошибка ввода - вывода. from TeamView");
         } catch (IndexOutOfBoundsException ex) {
             System.err.println("Обращение к несуществующему элементу, введите команду верно!");
         }

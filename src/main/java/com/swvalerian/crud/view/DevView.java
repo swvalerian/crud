@@ -1,18 +1,21 @@
 package com.swvalerian.crud.view;
 
+import com.swvalerian.crud.controller.DevController;
 import com.swvalerian.crud.controller.SkillController;
-import com.swvalerian.crud.model.Skill;
-import java.io.*;
+import com.swvalerian.crud.repository.JavaIODevRepImpl;
 
-public class SkillView {
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
+public class DevView {
     public void showMenu() { // думаю этот метод надо сделать final
         try (BufferedReader bufRead = new BufferedReader(new InputStreamReader(System.in))) {
             String str;
             ConsoleOut out = new ConsoleOut();
-            System.out.println(out.getHello() + out.userComSkill);
+            System.out.println(out.getHello() + out.userComDev);
 
-            SkillController sc = new SkillController();
+            DevController dc = new DevController();
 
             while (true) {
                 str = bufRead.readLine();
@@ -20,34 +23,40 @@ public class SkillView {
                 // команды: list, get, create, update, delete, exit
                 String[] com = str.split(" ");
                 switch (com[0]) {
-                    case "list" : System.out.println("\nВывод всех записей из файла: \n");
-                        sc.getAll();
+                    case "listDev":
+                        System.out.println("\nВывод всех записей из файла: \n");
+                        dc.getAll();
                         break;
-                    case "create" : sc.create(Integer.decode(com[1]), com[2]);
+                    case "createDev":
+                        dc.create(Integer.decode(com[1]), com[2], com[3]);
                         System.out.println("\n Успешно создали новую запись в файле!");
                         break;
-                    case "get" : System.out.println("Получили следующую запись из файла: \n");
-                        sc.read(Integer.decode(com[1]));
+                    case "getDev":
+                        System.out.println("Получили следующую запись из файла: \n");
+                        dc.read(Long.decode(com[1]));
                         break;
-                    case "update" : sc.update(Integer.decode(com[1]), com[2]);
+                    case "updateDev":
+                        dc.update(Integer.decode(com[1]), com[2], com[3]);
                         System.out.println("\nЗапись в файле обновлена");
                         break;
-                    case "delete" : sc.delete(Integer.decode(com[1]));
+                    case "deleteDev":
+                        dc.delete(Long.decode(com[1]));
                         System.out.println("\nЗапись номер " + com[1] + " удалена");
                         break;
-                    case "help" :
+                    case "help":
                         System.out.println(out.getExampleCom());
                         break;
-                    case "exit" :
+                    case "exit":
                         System.out.println(ConsoleOut.goodBy);
+                        bufRead.close();
                         return;
 
-                    default :
+                    default:
                         System.out.println("Введите верную команду!");
                 }
             }
         } catch (IOException ex) {
-            System.err.println("ошибка ввода - вывода");
+            System.err.println("ошибка ввода - вывода. form DevView");
         } catch (IndexOutOfBoundsException ex) {
             System.err.println("Обращение к несуществующему элементу, введите команду верно!");
         }
