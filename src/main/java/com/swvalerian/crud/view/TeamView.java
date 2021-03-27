@@ -49,10 +49,11 @@ public class TeamView {
                         System.out.println("Введите верную команду!");
                 }
             }
+            // может и тут что-то ?
         } catch (IOException ex) {
             System.err.println("ошибка ввода - вывода. from TeamView");
         } catch (IndexOutOfBoundsException ex) {
             System.err.println("Обращение к несуществующему элементу, введите команду верно!");
         }
-    }
+     }
 }
